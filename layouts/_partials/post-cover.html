@@ -2,7 +2,7 @@
 Returns cover image data for a post listing card.
 
 Sources (opt-in only):
-  - params.featured_image — path to an image
+  - params.featuredImage — path to an image
   - bundle resource matching featured.*
 
 Set params.showImage = false to hide the cover for a single post.
@@ -19,7 +19,7 @@ Set params.showPostImages = false in site config to disable covers globally.
 {{- end -}}
 
 {{- if $enabled -}}
-  {{- with $page.Params.featured_image -}}
+  {{- with $page.Params.featuredImage -}}
     {{- $src = . | relURL -}}
   {{- else -}}
     {{- with $page.Resources.GetMatch "featured.*" -}}
