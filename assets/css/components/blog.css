@@ -33,7 +33,8 @@
 }
 
 .post-link {
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: inherit;
 }

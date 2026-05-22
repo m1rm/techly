@@ -57,6 +57,21 @@
   margin-top: 4px;
 }
 
+.article-cover {
+  margin: 0;
+  padding: 0 0 48px;
+  background-color: var(--bg-primary);
+}
+
+.article-cover img {
+  display: block;
+  width: 100%;
+  max-height: min(480px, 50vh);
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-primary);
+}
+
 .article-body {
   padding: 60px 0;
   background-color: var(--bg-primary);

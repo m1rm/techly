@@ -41,7 +41,11 @@
           {{- $ancestors = $ancestors | append . -}}
         {{- end }}
         {{ partial "breadcrumb.html" (dict "page" . "ancestors" $ancestors) }}
+      </div>
 
+      {{ partial "post-image.html" . }}
+
+      <div class="container">
         <div class="article-layout">
           {{ partial "post-series-notice.html" . }}
           <div class="article-content">

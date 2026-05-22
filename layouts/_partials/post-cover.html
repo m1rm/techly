@@ -1,5 +1,5 @@
 {{- /*
-Returns cover image data for a post listing card.
+Returns cover image data for listing cards and single posts.
 
 Sources (opt-in only):
   - params.featuredImage — path to an image
@@ -20,7 +20,11 @@ Set params.showPostImages = false in site config to disable covers globally.
 
 {{- if $enabled -}}
   {{- with $page.Params.featuredImage -}}
-    {{- $src = . | relURL -}}
+    {{- with $page.Resources.Get . -}}
+      {{- $src = .RelPermalink -}}
+    {{- else -}}
+      {{- $src = . | relURL -}}
+    {{- end -}}
   {{- else -}}
     {{- with $page.Resources.GetMatch "featured.*" -}}
       {{- $src = .RelPermalink -}}
