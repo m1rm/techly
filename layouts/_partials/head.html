@@ -19,3 +19,9 @@
 })();
 </script>
 {{ partialCached "head/css.html" . }}
+{{- $searchPage := site.GetPage "/search" -}}
+{{- if $searchPage -}}
+  {{- with site.Home.OutputFormats.Get "JSON" -}}
+    <link rel="preload" href="{{ .RelPermalink }}" as="fetch" crossorigin="anonymous">
+  {{- end -}}
+{{- end -}}

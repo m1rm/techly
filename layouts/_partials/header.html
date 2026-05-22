@@ -9,7 +9,12 @@
 
     <div class="nav-menu" id="nav-menu">
       {{- partial "menu.html" (dict "menuID" "main" "page" .) }}
+      {{- with site.GetPage "/search" -}}
+        <a class="nav-link nav-search-link" href="{{ .RelPermalink }}">Search</a>
+      {{- end -}}
     </div>
+
+    {{ partial "search-form.html" (dict "class" "search-form search-form--nav" "inputId" "nav-search-input" "placeholder" "Search…") }}
 
     <div class="nav-controls">
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode">
