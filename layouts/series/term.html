@@ -1,0 +1,24 @@
+{{ define "main" }}
+  <header class="blog-header-section">
+    <div class="container">
+      <h1 class="section-title">{{ .LinkTitle }}</h1>
+      {{- with .Params.description }}
+        <p class="section-subtitle">{{ . }}</p>
+      {{- else -}}
+        {{- with .Content }}
+          <div class="section-subtitle series-term-intro">{{ . }}</div>
+        {{- end }}
+      {{- end }}
+    </div>
+  </header>
+
+  <section class="blog-posts-section" aria-label="Articles in {{ .LinkTitle }}">
+    <div class="container">
+      <div class="blog-posts-grid">
+        {{- range .Pages.ByDate }}
+          {{ partial "post-card.html" (dict "page" . "featured" false) }}
+        {{- end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

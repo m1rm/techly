@@ -11,5 +11,13 @@
 [params]
   mainSections = ["posts"]
 
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
+# Hugo does not merge [taxonomies] from theme modules when the site defines its own.
+# Add `series = "series"` to your site's hugo.toml if it is not picked up automatically.
+
 [outputs]
   home = ["HTML", "RSS", "JSON"]
