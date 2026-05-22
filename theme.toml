@@ -1,8 +1,8 @@
 name = "Techly"
-license = "MIT"
+license = "GPL-3.0"
 licenselink = "https://github.com/m1rm/techly/blob/main/LICENSE"
 description = "A clean, accessible Hugo theme for tech blogs."
-homepage = "https://github.com/m1rm/hugo-techly"
+homepage = "https://m1rm.github.io/hugo-techly/"
 tags = ["blog", "tech", "developer", "accessible"]
 min_version = "0.146.0"
 
