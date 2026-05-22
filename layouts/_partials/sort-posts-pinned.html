@@ -1,6 +1,13 @@
 {{- $byDate := .ByDate.Reverse -}}
-{{- $pinned := where $byDate "Params.pinned" true -}}
-{{- $unpinned := where $byDate "Params.pinned" "ne" true -}}
+{{- $pinned := slice -}}
+{{- $unpinned := slice -}}
+{{- range $byDate -}}
+  {{- if .Params.pinned -}}
+    {{- $pinned = $pinned | append . -}}
+  {{- else -}}
+    {{- $unpinned = $unpinned | append . -}}
+  {{- end -}}
+{{- end -}}
 {{- $posts := $pinned -}}
 {{- range $unpinned -}}
   {{- $posts = $posts | append . -}}

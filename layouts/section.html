@@ -1,9 +1,6 @@
 {{ define "main" }}
   {{- $sections := site.Params.mainSections | default (slice "posts") -}}
-  {{- $posts := .Pages.ByDate.Reverse -}}
-  {{- if in $sections .Section -}}
-    {{- $posts = partial "sort-posts-pinned.html" .Pages -}}
-  {{- end -}}
+  {{- $posts := cond (in $sections .Section) (partial "sort-posts-pinned.html" .Pages) (.Pages.ByDate.Reverse) -}}
 
   <header class="blog-header-section">
     <div class="container">

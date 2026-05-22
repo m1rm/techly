@@ -9,7 +9,7 @@
     {{- end }}
     <div class="post-content">
       <div class="post-meta">
-        {{- if and .page.Params.pinned (site.Params.showPinnedIndicator) -}}
+        {{- if and .page.Params.pinned .page.Params.pinnedIndicator -}}
           <span class="post-pinned" title="Pinned" aria-label="Pinned post">
             {{ partialCached "pin-icon.html" . }}
           </span>
