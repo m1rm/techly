@@ -413,6 +413,11 @@
 
   .article-sidebar {
     position: static;
+    order: -1;
+  }
+
+  .post-series-notice {
+    order: -2;
   }
 
   .related-articles-grid {

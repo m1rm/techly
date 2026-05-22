@@ -43,8 +43,8 @@
         {{ partial "breadcrumb.html" (dict "page" . "ancestors" $ancestors) }}
 
         <div class="article-layout">
+          {{ partial "post-series-notice.html" . }}
           <div class="article-content">
-            {{ partial "post-series-notice.html" . }}
             {{ .Content }}
 
             {{- with .GetTerms "tags" }}
@@ -57,6 +57,8 @@
                 </ul>
               </div>
             {{- end }}
+
+            {{ partial "post-series-nav.html" . }}
           </div>
 
           {{ partial "toc.html" . }}
@@ -65,7 +67,6 @@
     </div>
   </article>
 
-  {{ partial "post-series-nav.html" . }}
   {{ partial "related-posts.html" . }}
   {{ partial "newsletter-cta.html" . }}
 {{ end }}
