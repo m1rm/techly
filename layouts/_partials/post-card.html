@@ -9,6 +9,11 @@
     {{- end }}
     <div class="post-content">
       <div class="post-meta">
+        {{- if and .page.Params.pinned (site.Params.showPinnedIndicator) -}}
+          <span class="post-pinned" title="Pinned" aria-label="Pinned post">
+            {{ partialCached "pin-icon.html" . }}
+          </span>
+        {{- end -}}
         <time datetime="{{ .page.Date.Format "2006-01-02" }}" title="{{ .page.Date.Format "January 2, 2006" }}">
           {{ .page.Date.Format "January 2, 2006" }}
         </time>

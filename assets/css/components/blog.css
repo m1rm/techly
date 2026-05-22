@@ -65,9 +65,25 @@
 }
 
 .post-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 16px;
   font-size: 0.875rem;
   color: var(--text-muted);
+}
+
+.post-pinned {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--accent-primary);
+  line-height: 1;
+}
+
+.post-pinned svg {
+  display: block;
+  width: 14px;
+  height: 14px;
 }
 
 .post-title {
