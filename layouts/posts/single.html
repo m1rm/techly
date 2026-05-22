@@ -44,7 +44,7 @@
 
         <div class="article-layout">
           <div class="article-content">
-            {{ partial "post-series.html" . }}
+            {{ partial "post-series-notice.html" . }}
             {{ .Content }}
 
             {{- with .GetTerms "tags" }}
@@ -65,6 +65,7 @@
     </div>
   </article>
 
+  {{ partial "post-series-nav.html" . }}
   {{ partial "related-posts.html" . }}
   {{ partial "newsletter-cta.html" . }}
 {{ end }}
