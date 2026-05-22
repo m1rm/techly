@@ -7,21 +7,24 @@
       </a>
     </div>
 
-    <div class="nav-menu" id="nav-menu">
-      {{- partial "menu.html" (dict "menuID" "main" "page" .) }}
-      {{- with site.GetPage "/search" -}}
-        <a class="nav-link nav-search-link" href="{{ .RelPermalink }}">Search</a>
-      {{- end -}}
-    </div>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
 
-    {{ partial "search-form.html" (dict "class" "search-form search-form--nav" "inputId" "nav-search-input" "placeholder" "Search…") }}
+    <label for="nav-toggle" class="nav-hamburger">
+      <span class="visually-hidden">Toggle navigation menu</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </label>
 
-    <div class="nav-controls">
-      <button class="nav-hamburger" type="button" aria-label="Toggle navigation menu" aria-controls="nav-menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+    <div class="nav-collapse" id="nav-menu">
+      <div class="nav-menu">
+        {{- partial "menu.html" (dict "menuID" "main" "page" .) }}
+        {{- with site.GetPage "/search" -}}
+          <a class="nav-link nav-search-link" href="{{ .RelPermalink }}">Search</a>
+        {{- end -}}
+      </div>
+
+      {{ partial "search-form.html" (dict "class" "search-form search-form--nav" "inputId" "nav-search-input" "placeholder" "Search…") }}
     </div>
   </div>
 </nav>
