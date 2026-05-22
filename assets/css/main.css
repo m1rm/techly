@@ -1,15 +1,5 @@
-@import "components/header.css";
+@import "base.css";
+@import "components/navbar.css";
 @import "components/footer.css";
-
-body {
-  color: #222;
-  font-family: sans-serif;
-  line-height: 1.5;
-  margin: 1rem;
-  max-width: 768px;
-}
-
-a {
-  color: #00e;
-  text-decoration: none;
-}
+@import "components/blog.css";
+@import "components/article.css";

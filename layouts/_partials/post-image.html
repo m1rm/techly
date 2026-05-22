@@ -1,0 +1,4 @@
+{{- $cover := partial "post-cover.html" . -}}
+{{- if $cover.has -}}
+  <img src="{{ $cover.src }}" alt="{{ $cover.alt }}" loading="lazy">
+{{- end -}}

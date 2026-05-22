@@ -1,5 +1,21 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+{{- with .Description }}
+  <meta name="description" content="{{ . }}">
+{{- else }}
+  {{- with site.Params.description }}
+    <meta name="description" content="{{ . }}">
+  {{- end }}
+{{- end }}
+{{- with .Params.robots }}
+  <meta name="robots" content="{{ . }}">
+{{- end }}
+<script>
+(function () {
+  var stored = localStorage.getItem("theme");
+  var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  document.documentElement.dataset.theme = theme;
+})();
+</script>
 {{ partialCached "head/css.html" . }}
-{{ partialCached "head/js.html" . }}

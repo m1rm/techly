@@ -1,12 +1,11 @@
-name = "techly"
+name = "Techly"
 license = "MIT"
-licenselink = "https://github.com/m1rm/techly/LICENSE"
-description = "A simple Hugo theme for tech blogs"
-homepage = "Website of your theme"
-tags = ["blog", "tech", "developer", "IT"]
-min_version = "0.59.1"
+licenselink = "https://github.com/m1rm/techly/blob/main/LICENSE"
+description = "A clean, accessible Hugo theme for tech blogs."
+homepage = "https://github.com/m1rm/hugo-techly"
+tags = ["blog", "tech", "developer", "accessible", "dark-mode"]
+min_version = "0.146.0"
 
-# If the theme has a single author
 [author]
-    name = "Miriam Müller"
-    homepage = "miriam-mueller.com"
+  name = "Miriam Müller"
+  homepage = "https://miriam-mueller.com"
