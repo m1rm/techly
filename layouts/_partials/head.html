@@ -11,13 +11,6 @@
 {{- with .Params.robots }}
   <meta name="robots" content="{{ . }}">
 {{- end }}
-<script>
-(function () {
-  var stored = localStorage.getItem("theme");
-  var theme = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-  document.documentElement.dataset.theme = theme;
-})();
-</script>
 {{ partialCached "head/css.html" . }}
 {{- $searchPage := site.GetPage "/search" -}}
 {{- if $searchPage -}}

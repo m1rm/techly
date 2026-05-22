@@ -1,33 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var root = document.documentElement;
-  var toggle = document.getElementById("theme-toggle");
-  var themeText = document.getElementById("theme-text");
   var hamburger = document.querySelector(".nav-hamburger");
   var navMenu = document.getElementById("nav-menu");
-
-  function setTheme(theme) {
-    root.dataset.theme = theme;
-    localStorage.setItem("theme", theme);
-
-    if (themeText) {
-      themeText.textContent = theme === "dark" ? "Light" : "Dark";
-    }
-
-    if (toggle) {
-      toggle.setAttribute(
-        "aria-label",
-        theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-      );
-    }
-  }
-
-  if (toggle) {
-    setTheme(root.dataset.theme || "light");
-
-    toggle.addEventListener("click", function () {
-      setTheme(root.dataset.theme === "dark" ? "light" : "dark");
-    });
-  }
 
   if (hamburger && navMenu) {
     hamburger.addEventListener("click", function () {
