@@ -5,8 +5,8 @@
 
   <header class="blog-header-section">
     <div class="container">
-      <h1 class="section-title">{{ site.Title }}</h1>
-      {{- with site.Params.subtitle }}
+      <h1 class="section-title">{{ site.Params.banner.heading }}</h1>
+      {{- with site.Params.banner.subheading }}
         <p class="section-subtitle">{{ . }}</p>
       {{- else }}
         {{- with site.Params.description }}
