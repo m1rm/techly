@@ -1,4 +1,4 @@
-{{- $searchPage := site.GetPage "/search" -}}
+{{- $searchPage := partial "search-page.html" . -}}
 {{- if $searchPage -}}
   <div
     id="search-config"

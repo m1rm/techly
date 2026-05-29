@@ -14,11 +14,7 @@
 
   <section class="blog-posts-section" aria-label="Articles in {{ .LinkTitle }}">
     <div class="container">
-      <div class="blog-posts-grid">
-        {{- range .Pages.ByDate }}
-          {{ partial "post-card.html" (dict "page" . "featured" false) }}
-        {{- end }}
-      </div>
+      {{ partial "paginated-post-grid.html" (dict "page" . "pages" (.Pages.ByDate)) }}
     </div>
   </section>
 {{ end }}

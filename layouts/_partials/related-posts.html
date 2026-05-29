@@ -1,11 +1,20 @@
-{{- $current := . -}}
-{{- $posts := where site.RegularPages "Section" "posts" -}}
-{{- $related := where $posts "Permalink" "ne" $current.Permalink | first 3 -}}
+{{- $cfg := site.Params.related | default dict -}}
+{{- if eq ($cfg.enabled | default true) false -}}
+  {{- return -}}
+{{- end -}}
+
+{{- $limit := $cfg.limit | default 3 -}}
+{{- $heading := $cfg.heading | default "More articles" -}}
+{{- $sections := site.Params.mainSections | default (slice "posts") -}}
+
+{{- $related := where (site.RegularPages.Related .) "Section" "in" $sections -}}
+{{- $related = where $related "Permalink" "ne" .Permalink -}}
+{{- $related = $related | first $limit -}}
 
 {{- if gt (len $related) 0 -}}
   <section class="related-articles-section" aria-labelledby="related-heading">
     <div class="container">
-      <h2 class="section-title" id="related-heading">More articles</h2>
+      <h2 class="section-title" id="related-heading">{{ $heading }}</h2>
       <div class="related-articles-grid">
         {{- range $related }}
           {{- $cover := partial "post-cover.html" . -}}
@@ -33,6 +42,8 @@
           </article>
         {{- end }}
       </div>
+
+      {{- partial "related-more-link.html" (dict "page" . "related" $related "cfg" $cfg) -}}
     </div>
   </section>
 {{- end -}}
