@@ -14,7 +14,9 @@
       {{ partial "footer-social.html" . }}
     </div>
     <div class="footer-bottom">
-      <p>&copy; {{ site.Params.footer.since }} - {{ now.Year }} {{ site.Params.footer.copyright | default site.Params.author.name }}</p>
+      <p>&copy; {{- with site.Params.footer.since -}}
+        {{- if ne (int .) now.Year }}{{ int . }} - {{ end -}}
+      {{- end }}{{ now.Year }} {{ site.Params.footer.copyright | default site.Params.author.name }}</p>
     </div>
   </div>
 </footer>

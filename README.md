@@ -90,7 +90,7 @@ If your site already defines `[taxonomies]`, include every taxonomy you still ne
 | `params.author.avatar` | — | Default author avatar URL |
 | `params.footer.tagline` | — | Footer tagline |
 | `params.footer.copyright` | — | Footer copyright name |
-| `params.footer.since` | — | Start year in the copyright line |
+| `params.footer.since` | — | Start year; range `since - current` only when `since` differs from the current year |
 | `params.footer.showSocial` | `true` | Show `menus.social` in the footer |
 | `params.related.enabled` | `true` | Show related posts on single pages |
 | `params.related.limit` | `3` | Maximum related posts |
