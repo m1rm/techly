@@ -12,6 +12,9 @@
   mainSections = ["posts"]
   showPinnedIndicator = false
 
+  [params.footer]
+    showSocial = true
+
   [params.related]
     limit = 3
     heading = "More articles"

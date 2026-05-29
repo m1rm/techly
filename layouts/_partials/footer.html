@@ -11,6 +11,7 @@
           <p>{{ site.Params.description }}</p>
         {{- end }}
       </div>
+      {{ partial "footer-social.html" . }}
     </div>
     <div class="footer-bottom">
       <p>&copy; {{ site.Params.footer.since }} - {{ now.Year }} {{ site.Params.footer.copyright | default site.Params.author.name }}</p>
