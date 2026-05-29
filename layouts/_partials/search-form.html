@@ -1,4 +1,4 @@
-{{- $searchPage := site.GetPage "/search" -}}
+{{- $searchPage := partial "search-page.html" . -}}
 {{- if $searchPage -}}
   {{- $isNav := in (.class | default "") "search-form--nav" -}}
   <div class="{{ if $isNav }}search-form-wrap{{ end }}">

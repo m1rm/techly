@@ -13,7 +13,7 @@
   <meta name="robots" content="{{ . }}">
 {{- end }}
 {{ partialCached "head/css.html" . }}
-{{- $searchPage := site.GetPage "/search" -}}
+{{- $searchPage := partial "search-page.html" . -}}
 {{- if $searchPage -}}
   {{- with site.Home.OutputFormats.Get "JSON" -}}
     <link rel="preload" href="{{ .RelPermalink }}" as="fetch" crossorigin="anonymous">

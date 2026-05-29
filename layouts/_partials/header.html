@@ -19,7 +19,7 @@
     <div class="nav-collapse" id="nav-menu">
       <div class="nav-menu">
         {{- partial "menu.html" (dict "menuID" "main" "page" .) }}
-        {{- with site.GetPage "/search" -}}
+        {{- with partial "search-page.html" . -}}
           <a class="nav-link nav-search-link" href="{{ .RelPermalink }}">Search</a>
         {{- end -}}
       </div>

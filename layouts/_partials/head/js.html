@@ -13,7 +13,7 @@
     {{- end }}
   {{- end }}
 {{- end }}
-{{- if site.GetPage "/search" -}}
+{{- if partial "search-page.html" . -}}
   {{- with resources.Get "js/search.js" }}
     {{- $opts := dict
       "minify" (cond hugo.IsDevelopment false true)
