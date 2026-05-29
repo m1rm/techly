@@ -82,6 +82,15 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   transition: background-color var(--transition-medium), color var(--transition-medium);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+#main-content {
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 img {
