@@ -9,13 +9,17 @@ A clean, accessible Hugo theme for tech blogs — readable typography, responsiv
 ## Features
 
 - Responsive layout with a featured post on the home page and a grid for the rest
+- Paginated home page, tag archives, and series listings
 - Automatic light/dark mode via `prefers-color-scheme`
 - Client-side search with live suggestions (JSON index)
 - Table of contents on posts and optional TOC on pages
 - Post series with in-article notice, navigation, and archive pages
 - Pin important posts to the top of section listings
-- Related posts, breadcrumbs, tags, and optional cover images
+- Related posts with optional “More in …” tag links
+- Footer social links via `menus.social` and SVG icons
+- Breadcrumbs, tags, and optional cover images
 - Optional home-page call-to-action block (`params.newsletter`)
+- Optional site overrides in `assets/css/custom.css`
 - Accessible markup: skip links, landmarks, focus styles, semantic headings
 
 ## Requirements
@@ -25,11 +29,11 @@ A clean, accessible Hugo theme for tech blogs — readable typography, responsiv
 
 ## Installation
 
-Techly is distributed as a Hugo Module. From your site root:
+Techly **v2** is distributed as a Hugo Module. From your site root:
 
 ```bash
 hugo mod init github.com/your-user/your-site
-hugo mod get github.com/m1rm/techly
+hugo mod get github.com/m1rm/techly/v2@v2.0.1
 ```
 
 Add the theme to your site's `hugo.toml`:
@@ -37,16 +41,26 @@ Add the theme to your site's `hugo.toml`:
 ```toml
 [module]
   [[module.imports]]
-    path = "github.com/m1rm/techly"
+    path = "github.com/m1rm/techly/v2"
+    version = "v2.0.1"
 ```
 
-Then start the development server:
+Then fetch modules and start the development server:
 
 ```bash
+hugo mod get
 hugo server
 ```
 
+> **Note:** Use **v2.0.1** or later for module installs. The v2.0.0 tag shipped with an incorrect `go.mod` module path; v2.0.1 fixes that.
+
 See the [demo site repository](https://github.com/m1rm/hugo-techly) for a full working example.
+
+### Upgrading from v1.x
+
+1. Change the module path to `github.com/m1rm/techly/v2` and pin `version = "v2.0.1"` (or newer).
+2. Run `hugo mod get github.com/m1rm/techly/v2@v2.0.1`.
+3. Move your home-page subtitle into `[params.banner]` (see below) — the navbar still uses `title`, while the home hero uses `params.banner`.
 
 ## Site configuration
 
@@ -68,28 +82,46 @@ If your site already defines `[taxonomies]`, include every taxonomy you still ne
 | Parameter | Default | Description |
 | --- | --- | --- |
 | `params.mainSections` | `["posts"]` | Sections used for the home page and post listings |
-| `params.subtitle` | — | Subtitle on the home page |
+| `params.banner.heading` | — | Home page hero title (navbar uses `title`) |
+| `params.banner.subheading` | — | Home page hero subtitle; falls back to `params.description` |
 | `params.description` | — | Site description (meta, footer fallback) |
 | `params.showPostImages` | `true` | Show cover images on listing cards |
 | `params.author.name` | — | Default post author name |
 | `params.author.avatar` | — | Default author avatar URL |
 | `params.footer.tagline` | — | Footer tagline |
-| `params.footer.copyright` | — | Footer copyright line |
+| `params.footer.copyright` | — | Footer copyright name |
+| `params.footer.since` | — | Start year in the copyright line |
+| `params.footer.showSocial` | `true` | Show `menus.social` in the footer |
+| `params.related.enabled` | `true` | Show related posts on single pages |
+| `params.related.limit` | `3` | Maximum related posts |
+| `params.related.heading` | `"More articles"` | Related section heading |
+| `params.related.moreLink` | `"best"` | Tag CTA strategy: `best`, `first`, `all`, or `none` |
+| `params.related.moreLabel` | `"More in %s"` | Label for the tag CTA (`%s` = tag name) |
 | `params.newsletter` | — | Optional home-page CTA (see below) |
+| `params.searchPagePath` | — | Override search page path (default: `/search` or `/page/search`) |
 
 Example:
 
 ```toml
 [params]
-  subtitle = "Notes on software, systems, and the web."
+  description = "Notes on software, systems, and the web."
   mainSections = ["posts"]
+
+  [params.banner]
+    heading = "My Blog"
+    subheading = "Notes on software, systems, and the web."
 
   [params.author]
     name = "Your Name"
 
   [params.footer]
+    since = 2020
     tagline = "Built with Hugo and Techly."
     copyright = "Your Name"
+
+  [params.related]
+    limit = 3
+    moreLink = "best"
 ```
 
 ### Menus
@@ -108,6 +140,21 @@ Define navigation in `hugo.toml`:
   weight = 20
 ```
 
+### Footer social links
+
+Add a `social` menu and place SVG icons in your site's `assets/icons/` (for example `assets/icons/github.svg`). Each entry references the icon base name:
+
+```toml
+[[menus.social]]
+  name = "GitHub"
+  url = "https://github.com/your-user"
+  weight = 10
+  [menus.social.params]
+    icon = "github"
+```
+
+Set `params.footer.showSocial = false` to hide the block.
+
 ### Newsletter call-to-action
 
 The CTA appears on the **home page only** when configured:
@@ -120,6 +167,10 @@ The CTA appears on the **home page only** when configured:
   label = "Subscribe"
   external = true
 ```
+
+### Custom CSS
+
+Add `assets/css/custom.css` in your site. Techly includes it after the theme stylesheets (processed and fingerprinted in production builds).
 
 ## Content
 
@@ -211,11 +262,21 @@ Set `layout = "search"` in front matter if needed, or use the `_default/search.h
 
 ## Development
 
-To work on the theme locally with the demo site:
+To work on the theme locally with the [demo site](https://github.com/m1rm/hugo-techly):
+
+```go
+// hugo-techly/go.mod
+replace github.com/m1rm/techly/v2 => ../techly
+
+require github.com/m1rm/techly/v2 v2.0.1
+```
 
 ```toml
-# hugo-techly/go.mod
-replace github.com/m1rm/techly => ../techly
+# hugo-techly/hugo.toml
+[module]
+  [[module.imports]]
+    path = "github.com/m1rm/techly/v2"
+    version = "v2.0.1"
 ```
 
 Remove the `replace` directive before publishing or in CI.
