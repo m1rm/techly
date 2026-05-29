@@ -16,6 +16,8 @@
     limit = 3
     heading = "More articles"
     enabled = true
+    moreLink = "best"
+    moreLabel = "More in %s"
 
 [taxonomies]
   tag = "tags"

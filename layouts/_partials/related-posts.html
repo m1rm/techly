@@ -42,6 +42,8 @@
           </article>
         {{- end }}
       </div>
+
+      {{- partial "related-more-link.html" (dict "page" . "related" $related "cfg" $cfg) -}}
     </div>
   </section>
 {{- end -}}

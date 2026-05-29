@@ -433,6 +433,14 @@
   color: var(--text-muted);
 }
 
+.related-more-cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 48px;
+}
+
 .cta-section {
   padding: 60px 0;
   background-color: var(--bg-primary);
