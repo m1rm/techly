@@ -9,8 +9,12 @@
     <meta name="description" content="{{ . }}">
   {{- end }}
 {{- end }}
-{{- with .Params.robots }}
-  <meta name="robots" content="{{ . }}">
+{{- if .Params.robots }}
+  <meta name="robots" content="{{ .Params.robots }}">
+{{- else if .Params.index }}
+  <meta name="robots" content="index">
+{{- else }}
+  <meta name="robots" content="noindex">
 {{- end }}
 {{ partialCached "head/css.html" . }}
 {{- $searchPage := partial "search-page.html" . -}}
