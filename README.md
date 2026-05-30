@@ -97,6 +97,7 @@ If your site already defines `[taxonomies]`, include every taxonomy you still ne
 | `params.related.heading` | `"More articles"` | Related section heading |
 | `params.related.moreLink` | `"best"` | Tag CTA strategy: `best`, `first`, `all`, or `none` |
 | `params.related.moreLabel` | `"More in %s"` | Label for the tag CTA (`%s` = tag name) |
+| `params.indexHome` | `true` | Index the home page and include it in `sitemap.xml` |
 | `params.newsletter` | — | Optional home-page CTA (see below) |
 | `params.searchPagePath` | — | Override search page path (default: `/search` or `/page/search`) |
 
@@ -251,7 +252,14 @@ This controls two things:
 - **`<meta name="robots">`** — pages with `index = true` get `content="index"`; all others get `content="noindex"`.
 - **`sitemap.xml`** — only pages with `index = true` are listed.
 
-Auto-generated pages (home, tag archives, series listings, search, and similar) stay excluded unless you explicitly set `index = true` on them.
+Auto-generated pages (tag archives, series listings, search, and similar) stay excluded unless you explicitly set `index = true` on them.
+
+The home page is indexed by default. Disable that in your site's `hugo.toml`:
+
+```toml
+[params]
+  indexHome = false
+```
 
 For fine-grained control, set a custom `robots` value instead. When present, it overrides the `index` setting:
 

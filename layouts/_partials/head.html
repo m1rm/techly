@@ -11,7 +11,7 @@
 {{- end }}
 {{- if .Params.robots }}
   <meta name="robots" content="{{ .Params.robots }}">
-{{- else if .Params.index }}
+{{- else if or .Params.index (and .IsHome (default true site.Params.indexHome)) }}
   <meta name="robots" content="index">
 {{- else }}
   <meta name="robots" content="noindex">
