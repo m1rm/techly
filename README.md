@@ -238,6 +238,36 @@ hugo new series/building-in-public/_index.md
 toc = true
 ```
 
+### SEO
+
+Techly uses an opt-in model for search engine indexing. By default, pages are **not** indexed and are **excluded** from `sitemap.xml`. Set `index = true` in front matter on content you want search engines to discover and index.
+
+```toml
+index = true
+```
+
+This controls two things:
+
+- **`<meta name="robots">`** — pages with `index = true` get `content="index"`; all others get `content="noindex"`.
+- **`sitemap.xml`** — only pages with `index = true` are listed.
+
+Auto-generated pages (home, tag archives, series listings, search, and similar) stay excluded unless you explicitly set `index = true` on them.
+
+For fine-grained control, set a custom `robots` value instead. When present, it overrides the `index` setting:
+
+```toml
+robots = "noindex, follow"
+```
+
+Point crawlers at your sitemap in `static/robots.txt`:
+
+```
+User-agent: *
+Allow: /
+
+Sitemap: https://example.com/sitemap.xml
+```
+
 ### Search
 
 Search uses the JSON home output. Create a content page at `content/search.md`:
