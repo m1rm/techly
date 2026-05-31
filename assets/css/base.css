@@ -41,6 +41,12 @@
   --container-max: 1200px;
   --content-max: 800px;
 
+  --chroma-punctuation: #1f2328;
+  --chroma-name-attribute: #1f2328;
+  --chroma-name-builtin: #6639ba;
+  --chroma-name-builtin-pseudo: #6a737d;
+  --chroma-generic-emph: #1f2328;
+
   color-scheme: light;
 }
 
@@ -68,6 +74,12 @@
     --shadow-small: 0 1px 3px rgba(0, 0, 0, 0.12);
     --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
     --shadow-large: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    --chroma-punctuation: var(--text-primary);
+    --chroma-name-attribute: #79c0ff;
+    --chroma-name-builtin: #ffa657;
+    --chroma-name-builtin-pseudo: var(--text-muted);
+    --chroma-generic-emph: var(--text-primary);
   }
 }
 
