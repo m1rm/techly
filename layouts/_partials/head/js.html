@@ -1,14 +1,16 @@
-{{- with resources.Get "js/main.js" }}
-  {{- $opts := dict
-    "minify" (cond hugo.IsDevelopment false true)
-    "sourceMap" (cond hugo.IsDevelopment "linked" "none")
-  }}
-  {{- with . | js.Build $opts }}
-    {{- if hugo.IsDevelopment }}
-      <script src="{{ .RelPermalink }}" defer></script>
-    {{- else }}
-      {{- with . | fingerprint }}
-        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+{{- $jsOpts := dict
+  "minify" (cond hugo.IsDevelopment false true)
+  "sourceMap" (cond hugo.IsDevelopment "linked" "none")
+}}
+{{- range slice "js/main.js" "js/code-copy.js" }}
+  {{- with resources.Get . }}
+    {{- with . | js.Build $jsOpts }}
+      {{- if hugo.IsDevelopment }}
+        <script src="{{ .RelPermalink }}" defer></script>
+      {{- else }}
+        {{- with . | fingerprint }}
+          <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+        {{- end }}
       {{- end }}
     {{- end }}
   {{- end }}

@@ -180,11 +180,67 @@
   color: var(--text-primary);
 }
 
-.article-content .highlight {
+.article-content .highlight,
+.article-content pre.code-block {
+  position: relative;
   margin-bottom: 24px;
   border: 1px solid var(--border-primary);
   border-radius: var(--radius);
   overflow-x: auto;
+}
+
+.article-content pre.code-block {
+  background-color: var(--bg-tertiary);
+}
+
+.article-content .code-copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  padding: 4px 10px;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.article-content .code-block:hover .code-copy-btn,
+.article-content .code-block:focus-within .code-copy-btn {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .article-content .code-copy-btn {
+    opacity: 1;
+  }
+}
+
+.article-content .code-copy-btn:hover {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.article-content .code-copy-btn:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--accent-secondary);
+  outline-offset: 2px;
+}
+
+.article-content .code-copy-btn.is-copied {
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 .article-content .highlight pre {
@@ -195,7 +251,7 @@
   background: transparent;
 }
 
-.article-content pre {
+.article-content pre:not(.code-block) {
   margin-bottom: 24px;
   overflow-x: auto;
   border-radius: var(--radius);
