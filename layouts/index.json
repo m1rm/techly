@@ -5,8 +5,8 @@
   {{- if gt $index 0 }},{{ end -}}
   {{- dict
     "title" $page.Title
-    "summary" ($page.Summary | plainify)
-    "content" ($page.Plain | plainify)
+    "summary" ($page.Summary | plainify | htmlUnescape)
+    "content" ($page.Plain | plainify | htmlUnescape)
     "permalink" $page.RelPermalink
     "date" ($page.Date.Format "2006-01-02")
   | jsonify -}}

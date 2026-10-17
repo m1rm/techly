@@ -1,11 +1,13 @@
 name = "Techly"
 license = "GPL-3.0"
 licenselink = "https://github.com/m1rm/techly/blob/main/LICENSE"
-description = "A clean, accessible Hugo theme for tech blogs."
+description = "A clean, accessible Hugo theme for tech and developer blogs with automatic light/dark mode, search, post series, and a table of contents."
 homepage = "https://github.com/m1rm/techly"
 demosite = "https://m1rm.github.io/hugo-techly/"
-tags = ["blog", "tech", "developer", "accessible"]
-features = ["post series", "pinned posts", "search", "table of contents", "dark mode"]
+# themes.gohugo.io only keeps tags from a fixed allowlist (see normalizeTag in
+# gohugoio/hugoThemesSiteBuilder); the others are kept for other theme indexes.
+tags = ["blog", "personal", "minimal", "dark mode", "light mode", "archive", "newsletter", "tech", "developer", "accessible"]
+features = ["light and dark mode", "accessibility", "client-side search", "post series", "pinned posts", "table of contents", "syntax highlighting", "code copy button", "related posts", "archive page", "sitemap", "pagination"]
 min_version = "0.146.0"
 
 [author]

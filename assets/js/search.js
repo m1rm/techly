@@ -12,11 +12,24 @@ document.addEventListener("DOMContentLoaded", function () {
   function escapeHtml(text) {
     var el = document.createElement("div");
     el.textContent = text;
-    return el.innerHTML;
+    // innerHTML leaves quotes as-is; encode them for use in attribute values.
+    return el.innerHTML.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
 
   function escapeRegExp(string) {
     return string.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  // Escapes text and wraps matches in <mark>; never inserts unescaped input.
+  function highlight(text, terms) {
+    var pattern = new RegExp("(" + terms.map(escapeRegExp).join("|") + ")", "gi");
+
+    return text
+      .split(pattern)
+      .map(function (part, i) {
+        return i % 2 === 1 ? "<mark>" + escapeHtml(part) + "</mark>" : escapeHtml(part);
+      })
+      .join("");
   }
 
   function getQueryParam() {
@@ -71,12 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var start = Math.max(0, matchIndex - 40);
     var end = Math.min(text.length, matchIndex + matchTerm.length + 80);
     var snippet = text.slice(start, end).trim();
-    var highlighted = snippet.replace(
-      new RegExp("(" + terms.map(escapeRegExp).join("|") + ")", "gi"),
-      "<mark>$1</mark>"
-    );
 
-    return (start > 0 ? "…" : "") + highlighted + (end < text.length ? "…" : "");
+    return (start > 0 ? "…" : "") + highlight(snippet, terms) + (end < text.length ? "…" : "");
   }
 
   function searchPages(pages, query) {
@@ -105,15 +114,10 @@ document.addEventListener("DOMContentLoaded", function () {
           return null;
         }
 
-        var highlightedTitle = page.title.replace(
-          new RegExp("(" + terms.map(escapeRegExp).join("|") + ")", "gi"),
-          "<mark>$1</mark>"
-        );
-
         return {
           item: page,
           score: score,
-          highlightedTitle: highlightedTitle,
+          highlightedTitle: highlight(page.title, terms),
           preview: buildPreview(page.summary || page.content, terms, 140),
         };
       })
@@ -144,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function renderSuggestion(result) {
     return (
-      '<a class="search-suggestion" role="option" href="' +
+      '<a class="search-suggestion" href="' +
       escapeHtml(result.item.permalink) +
       '">' +
       '<span class="search-suggestion-title">' +
@@ -246,7 +250,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function hideSuggestions() {
       suggestions.hidden = true;
       suggestions.innerHTML = "";
-      input.setAttribute("aria-expanded", "false");
     }
 
     function showSuggestions(results) {
@@ -257,13 +260,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       var limited = results.slice(0, 5);
       var viewAll =
-        '<a class="search-suggestion search-suggestion--all" role="option" href="' +
+        '<a class="search-suggestion search-suggestion--all" href="' +
         escapeHtml(searchUrl + "?q=" + encodeURIComponent(input.value.trim())) +
         '">View all results</a>';
 
       suggestions.innerHTML = limited.map(renderSuggestion).join("") + viewAll;
       suggestions.hidden = false;
-      input.setAttribute("aria-expanded", "true");
     }
 
     input.closest("form").addEventListener("submit", function (event) {
@@ -301,7 +303,6 @@ document.addEventListener("DOMContentLoaded", function () {
     input.addEventListener("focus", function () {
       if (input.value.trim() && suggestions.innerHTML) {
         suggestions.hidden = false;
-        input.setAttribute("aria-expanded", "true");
       }
     });
 
@@ -311,8 +312,18 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    input.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
+    var wrap = input.closest(".search-form-wrap");
+
+    wrap.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !suggestions.hidden) {
+        hideSuggestions();
+        input.focus();
+      }
+    });
+
+    // Close when keyboard focus leaves the search, so the dropdown never covers the focused element.
+    wrap.addEventListener("focusout", function (event) {
+      if (event.relatedTarget && !wrap.contains(event.relatedTarget)) {
         hideSuggestions();
       }
     });
