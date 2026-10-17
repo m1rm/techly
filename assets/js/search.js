@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function escapeHtml(text) {
     var el = document.createElement("div");
     el.textContent = text;
-    return el.innerHTML;
+    // innerHTML leaves quotes as-is; encode them for use in attribute values.
+    return el.innerHTML.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   }
 
   function escapeRegExp(string) {
@@ -311,10 +312,19 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    input.closest(".search-form-wrap").addEventListener("keydown", function (event) {
+    var wrap = input.closest(".search-form-wrap");
+
+    wrap.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && !suggestions.hidden) {
         hideSuggestions();
         input.focus();
+      }
+    });
+
+    // Close when keyboard focus leaves the search, so the dropdown never covers the focused element.
+    wrap.addEventListener("focusout", function (event) {
+      if (event.relatedTarget && !wrap.contains(event.relatedTarget)) {
+        hideSuggestions();
       }
     });
   }
