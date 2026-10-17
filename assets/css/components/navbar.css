@@ -73,6 +73,12 @@
   transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 
+/* The checkbox is visually hidden, so show its keyboard focus on the hamburger */
+.nav-toggle:focus-visible ~ .nav-hamburger {
+  outline: 2px solid var(--accent-secondary);
+  outline-offset: 2px;
+}
+
 .nav-toggle:checked ~ .nav-hamburger span[aria-hidden="true"]:nth-child(2) {
   transform: translateY(7px) rotate(45deg);
 }

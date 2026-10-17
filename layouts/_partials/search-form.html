@@ -18,8 +18,6 @@
         autocomplete="off"
         {{- if $isNav }}
           aria-controls="nav-search-suggestions"
-          aria-expanded="false"
-          aria-autocomplete="list"
         {{- end }}
         {{- with .value }} value="{{ . }}"{{ end }}
       >
@@ -31,7 +29,7 @@
       </button>
     </form>
     {{- if $isNav }}
-      <div class="search-suggestions" id="nav-search-suggestions" role="listbox" hidden></div>
+      <div class="search-suggestions" id="nav-search-suggestions" hidden></div>
     {{- end }}
   </div>
 {{- end -}}

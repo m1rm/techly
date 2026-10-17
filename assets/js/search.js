@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function renderSuggestion(result) {
     return (
-      '<a class="search-suggestion" role="option" href="' +
+      '<a class="search-suggestion" href="' +
       escapeHtml(result.item.permalink) +
       '">' +
       '<span class="search-suggestion-title">' +
@@ -249,7 +249,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function hideSuggestions() {
       suggestions.hidden = true;
       suggestions.innerHTML = "";
-      input.setAttribute("aria-expanded", "false");
     }
 
     function showSuggestions(results) {
@@ -260,13 +259,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       var limited = results.slice(0, 5);
       var viewAll =
-        '<a class="search-suggestion search-suggestion--all" role="option" href="' +
+        '<a class="search-suggestion search-suggestion--all" href="' +
         escapeHtml(searchUrl + "?q=" + encodeURIComponent(input.value.trim())) +
         '">View all results</a>';
 
       suggestions.innerHTML = limited.map(renderSuggestion).join("") + viewAll;
       suggestions.hidden = false;
-      input.setAttribute("aria-expanded", "true");
     }
 
     input.closest("form").addEventListener("submit", function (event) {
@@ -304,7 +302,6 @@ document.addEventListener("DOMContentLoaded", function () {
     input.addEventListener("focus", function () {
       if (input.value.trim() && suggestions.innerHTML) {
         suggestions.hidden = false;
-        input.setAttribute("aria-expanded", "true");
       }
     });
 
@@ -314,9 +311,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    input.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
+    input.closest(".search-form-wrap").addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !suggestions.hidden) {
         hideSuggestions();
+        input.focus();
       }
     });
   }
