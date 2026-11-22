@@ -1,0 +1,10 @@
+{{- /*
+Returns the posts listed (and paginated) on the home page: regular pages of
+site.Params.mainSections, pinned posts first, then newest first.
+
+Shared by the home page's "main" and "canonical" blocks so both call .Paginate
+with the identical collection (Hugo builds a page's paginator only once).
+*/ -}}
+{{- $sections := site.Params.mainSections | default (slice "posts") -}}
+{{- $posts := where site.RegularPages "Section" "in" $sections -}}
+{{- return partial "sort-posts-pinned.html" $posts -}}

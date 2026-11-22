@@ -1,0 +1,7 @@
+{{- /*
+Renders the canonical link.
+
+@context {string} . Absolute URL. Paginated lists pass their current pager's
+  URL so /page/2/ is canonical to itself rather than to page 1.
+*/ -}}
+<link rel="canonical" href="{{ . }}">

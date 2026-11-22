@@ -2,6 +2,7 @@
 <html lang="{{ site.Language.Lang }}" dir="{{ or site.Language.Direction `ltr` }}">
 <head>
   {{ partial "head.html" . }}
+  {{ block "canonical" . }}{{ partial "head/canonical.html" .Permalink }}{{ end }}
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>

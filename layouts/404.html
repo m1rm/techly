@@ -1,0 +1,33 @@
+{{- /* Not-found page, served by the web server for missing URLs (e.g. nginx error_page 404 /404.html). */ -}}
+
+{{- /* A canonical URL makes no sense for an error page. The empty-string
+action is needed: Go ignores a define whose body is only whitespace/comments. */ -}}
+{{ define "canonical" }}{{ "" }}{{ end }}
+
+{{ define "main" }}
+  <article class="blog-article page-article">
+    <header class="article-header">
+      <div class="container">
+        <div class="article-header-content">
+          <h1 class="article-title">Page not found</h1>
+          <p class="article-lead">The page you are looking for does not exist or has moved.</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="article-body">
+      <div class="container">
+        <div class="article-layout">
+          <div class="article-content">
+            <ul>
+              <li><a href="{{ site.Home.RelPermalink }}">Go to the home page</a></li>
+              {{- with partial "search-page.html" . }}
+                <li><a href="{{ .RelPermalink }}">Search the site</a></li>
+              {{- end }}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+{{ end }}

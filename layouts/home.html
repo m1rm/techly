@@ -1,7 +1,9 @@
+{{ define "canonical" }}
+  {{- partial "head/canonical.html" ((.Paginate (partial "home-posts.html" .)).URL | absURL) -}}
+{{ end }}
+
 {{ define "main" }}
-  {{- $sections := site.Params.mainSections | default (slice "posts") -}}
-  {{- $posts := where site.RegularPages "Section" "in" $sections -}}
-  {{- $posts = partial "sort-posts-pinned.html" $posts -}}
+  {{- $posts := partial "home-posts.html" . -}}
 
   <header class="blog-header-section">
     <div class="container">

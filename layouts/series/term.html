@@ -1,3 +1,7 @@
+{{ define "canonical" }}
+  {{- partial "head/canonical.html" ((.Paginate .Pages.ByDate).URL | absURL) -}}
+{{ end }}
+
 {{ define "main" }}
   <header class="blog-header-section">
     <div class="container">
