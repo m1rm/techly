@@ -18,6 +18,7 @@ A clean, accessible Hugo theme for tech blogs — readable typography, responsiv
 - Related posts with optional “More in …” tag links
 - Footer social links via `menus.social` and SVG icons
 - Breadcrumbs, tags, and optional cover images
+- SEO basics: opt-in indexing, canonical links, sitemap, and a 404 page
 - Optional home-page call-to-action block (`params.newsletter`)
 - Optional site overrides in `assets/css/custom.css`
 - Accessible markup: skip links, landmarks, focus styles, semantic headings
@@ -266,6 +267,12 @@ For fine-grained control, set a custom `robots` value instead. When present, it 
 ```toml
 robots = "noindex, follow"
 ```
+
+Every page also gets a `<link rel="canonical">` pointing to its own permalink. Paginated lists (home, tags, series) point to the current page, e.g. `/page/2/` is canonical to itself. Make sure `baseURL` is the host you want indexed (e.g. without `www`) and redirect other hosts to it on your web server.
+
+If your own layout overrides a paginating template, override the `canonical` block too and call `.Paginate` with the same collection, e.g. `{{ define "canonical" }}{{ partial "head/canonical.html" ((.Paginate .Pages).URL | absURL) }}{{ end }}`. The head renders before `main`, so the head itself cannot know which collection you paginate.
+
+The theme ships a `404.html` (`noindex`, no canonical, not in the sitemap). Point your web server at it, e.g. nginx `error_page 404 /404.html;`.
 
 Point crawlers at your sitemap in `static/robots.txt`:
 
