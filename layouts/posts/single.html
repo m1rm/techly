@@ -65,7 +65,10 @@
             {{ partial "post-series-nav.html" . }}
           </div>
 
-          {{ partial "toc.html" . }}
+          {{- /* Shown by default on posts; set toc = false in front matter to hide it. */}}
+          {{- if ne .Params.toc false }}
+            {{ partial "toc.html" . }}
+          {{- end }}
         </div>
       </div>
     </div>

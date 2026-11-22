@@ -1,5 +1,13 @@
+{{- /*
+Renders the table of contents sidebar.
+
+Without headings in the configured range (markup.tableOfContents startLevel/endLevel),
+Hugo still returns markup: an empty <nav id="TableOfContents"></nav>, or empty nested
+<ul><li> skeletons when only deeper headings exist. So check for actual links instead
+of the string length.
+*/ -}}
 {{- $headings := .TableOfContents -}}
-{{- if gt (len $headings) 0 -}}
+{{- if findRE `<a href=` $headings 1 -}}
   <aside class="article-sidebar">
     <div class="sidebar-card">
       <h2 class="sidebar-title">Contents</h2>
