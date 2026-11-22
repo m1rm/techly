@@ -234,11 +234,21 @@ Optional series descriptions:
 hugo new series/building-in-public/_index.md
 ```
 
-### Pages with table of contents
+### Table of contents
+
+Posts show a table of contents by default. Hide it on a single post with:
+
+```toml
+toc = false
+```
+
+Pages don't show one unless you enable it:
 
 ```toml
 toc = true
 ```
+
+The table of contents only appears when the content has headings within `markup.tableOfContents` `startLevel`–`endLevel` (Hugo's default: `##` and `###`), so posts without such headings get no empty box.
 
 ### SEO
 
