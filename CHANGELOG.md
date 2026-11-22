@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `toc = false` in front matter hides the table of contents on posts ([#3](https://github.com/m1rm/techly/issues/3)).
+- No empty table of contents box on posts and pages without headings in the configured `startLevel`–`endLevel` range.
+
 ## [2.5.0] - 2026-11-22
 
 ### Added
