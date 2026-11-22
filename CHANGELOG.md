@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-11-22
+
 ### Added
 
 - Canonical link (`<link rel="canonical">`) on every page. Paginated lists (home, tags, series) point to the current page, so `/page/2/` is canonical to itself.
@@ -178,7 +180,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > **Note:** the `v0.0.1` tag was moved by mistake and points at the same commit as v0.1.1 (`9045d47`). The release described here is commit `5c41631`. The tag stays as it is because the Go module proxy has already cached it.
 
-[Unreleased]: https://github.com/m1rm/techly/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/m1rm/techly/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/m1rm/techly/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/m1rm/techly/compare/v2.3.1...v2.4.0
 [2.3.1]: https://github.com/m1rm/techly/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/m1rm/techly/compare/v2.2.1...v2.3.0
