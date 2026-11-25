@@ -275,7 +275,7 @@ Techly ships four types:
 | `warning` | amber | something to watch out for |
 | `caution` | red | risk of breaking something or losing data |
 
-`note` is accepted as an alias for `info`, so content written for [hugo-notice](https://github.com/martignoni/hugo-notice) keeps working. Remove `hugo-notice` from your module imports, or its `notice` shortcode takes precedence.
+Coming from [hugo-notice](https://github.com/martignoni/hugo-notice)? Its `info`, `tip` and `warning` notices work as they are. For `note`, add a `note` type (see below) or change the content to `info`. Remove `hugo-notice` from your module imports, or its `notice` shortcode takes precedence.
 
 Set a custom title as the second argument, or use named parameters:
 

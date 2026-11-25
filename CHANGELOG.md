@@ -14,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `notice` shortcode for info, tip, warning and caution boxes, styled like blockquotes with a colored border, icon and title. Colors meet WCAG AA in light and dark mode.
 - Notice types are configured under `params.notices.<type>` in your site config (TOML or YAML): `title`, `icon` (any SVG in `assets/icons/`, or `""` for none) and `color` (one value or separate `light` and `dark` values). Override single keys of the built-in types or add your own types.
 - Custom notice titles per notice (positional or `title=`) and translatable default titles (`notice_<type>` i18n keys).
-- `note` as an alias for `info`, so content written for hugo-notice keeps working.
 
 ### Fixed
 

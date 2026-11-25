@@ -7,8 +7,8 @@ Usage:
   {{< notice type="tip" title="Custom title" >}}Markdown content{{< /notice >}}
 
 Types, titles, icons and colors come from site.Params.notices (defaults in
-the theme's hugo.toml: info, tip, warning, caution). "note" is
-accepted as an alias for "info" unless a "note" type is configured.
+the theme's hugo.toml: info, tip, warning, caution). Without a type,
+a notice is info.
 
 Title precedence: shortcode argument, i18n key notice_<type> (hyphens
 become underscores), params.notices.<type>.title, the type name.
@@ -27,9 +27,6 @@ become underscores), params.notices.<type>.title, the type name.
 {{- end -}}
 
 {{- $type = $type | default "info" | lower -}}
-{{- if and (eq $type "note") (not (isset $types "note")) -}}
-  {{- $type = "info" -}}
-{{- end -}}
 
 {{- if not (isset $types $type) -}}
   {{- $known := slice -}}
