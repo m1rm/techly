@@ -1,0 +1,43 @@
+/* Notice shortcode (layouts/_shortcodes/notice.html).
+   Same box as blockquotes, upright text at body size, colored by type.
+   Type colors come from params.notices (layouts/_partials/head/notice-css.html). */
+
+.notice {
+  --notice-color: var(--accent-primary);
+
+  margin: 32px 0;
+  padding: 20px 28px;
+  border-left: 4px solid var(--notice-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.article-content .notice-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  color: var(--notice-color);
+  font-weight: 600;
+}
+
+.notice-icon {
+  display: flex;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.notice-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.notice-content > :first-child {
+  margin-top: 0;
+}
+
+.notice-content > :last-child {
+  margin-bottom: 0;
+}

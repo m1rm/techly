@@ -18,6 +18,7 @@ A clean, accessible Hugo theme for tech blogs — readable typography, responsiv
 - Related posts with optional “More in …” tag links
 - Footer social links via `menus.social` and SVG icons
 - Breadcrumbs, tags, and optional cover images
+- Notice boxes (info, tip, warning, caution) via the `notice` shortcode
 - SEO basics: opt-in indexing, canonical links, sitemap, and a 404 page
 - Optional home-page call-to-action block (`params.newsletter`)
 - Optional site overrides in `assets/css/custom.css`
@@ -65,7 +66,7 @@ See the [demo site repository](https://github.com/m1rm/hugo-techly) for a full w
 
 ## Site configuration
 
-Hugo does not merge every setting from theme modules into your site. Add the following to your site's `hugo.toml` so search and series work correctly:
+Hugo does not merge every setting from theme modules into your site. Add the following to your site's `hugo.toml` so search, series and syntax highlighting work correctly:
 
 ```toml
 [taxonomies]
@@ -74,7 +75,12 @@ Hugo does not merge every setting from theme modules into your site. Add the fol
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+
+[markup.highlight]
+  noClasses = false
 ```
+
+`noClasses = false` makes Hugo mark up code blocks with CSS classes, which Techly styles for light and dark mode. Without it, Hugo uses inline Monokai colors, and plain text in code blocks can be unreadable.
 
 If your site already defines `[taxonomies]`, include every taxonomy you still need — Hugo replaces the list rather than merging entries from the theme.
 
@@ -249,6 +255,103 @@ toc = true
 ```
 
 The table of contents only appears when the content has headings within `markup.tableOfContents` `startLevel`–`endLevel` (Hugo's default: `##` and `###`), so posts without such headings get no empty box.
+
+### Notices
+
+Highlight a passage with the `notice` shortcode. The content is Markdown.
+
+```markdown
+{{< notice info >}}
+Techly is developed on [GitHub](https://github.com/m1rm/techly).
+{{< /notice >}}
+```
+
+Techly ships four types:
+
+| Type | Color | Use for |
+| --- | --- | --- |
+| `info` (default) | blue | background information |
+| `tip` | green | helpful advice |
+| `warning` | amber | something to watch out for |
+| `caution` | red | risk of breaking something or losing data |
+
+Coming from [hugo-notice](https://github.com/martignoni/hugo-notice)? Its `info`, `tip` and `warning` notices work as they are. For `note`, add a `note` type (see below) or change the content to `info`. Remove `hugo-notice` from your module imports, or its `notice` shortcode takes precedence.
+
+Set a custom title as the second argument, or use named parameters:
+
+```markdown
+{{< notice warning "Breaking change" >}}…{{< /notice >}}
+{{< notice type="tip" title="Shortcut" >}}…{{< /notice >}}
+```
+
+Notices render as an `<aside role="note">` with the theme's blockquote look: a colored left border, an icon and a bold title, with upright body text. The default colors meet WCAG AA contrast in light and dark mode. An unknown type stops the build with an error that lists the configured types.
+
+#### Configuring notices
+
+Each type is configured under `params.notices.<type>` with three keys:
+
+| Key | Description |
+| --- | --- |
+| `title` | Default title |
+| `icon` | Name of an SVG in `assets/icons/` (without `.svg`), or `""` for no icon |
+| `color` | Border, title and icon color: one value for both modes, or `{ light = "…", dark = "…" }` |
+
+The theme's defaults are merged with your config, so you only set what you change. For example, in `hugo.toml`:
+
+```toml
+# One color in light and dark mode
+[params.notices.info]
+  color = "#005f73"
+
+# Only change the dark mode color, keep the light one
+[params.notices.warning.color]
+  dark = "#e3b341"
+
+# Your own icon from assets/icons/rocket.svg
+[params.notices.tip]
+  icon = "rocket"
+
+# No icon
+[params.notices.caution]
+  icon = ""
+
+# A new type: {{< notice success >}}…{{< /notice >}}
+[params.notices.success]
+  title = "Done"
+  icon = "notice-tip"
+  color = { light = "#116329", dark = "#56d364" }
+```
+
+The same in `hugo.yaml`:
+
+```yaml
+params:
+  notices:
+    info:
+      color: "#005f73"
+    warning:
+      color:
+        dark: "#e3b341"
+    success:
+      title: Done
+      icon: notice-tip
+      color:
+        light: "#116329"
+        dark: "#56d364"
+```
+
+Icons are inlined into the page and should use `stroke="currentColor"` or `fill="currentColor"` so they take the notice color. The built-in icons are `notice-info`, `notice-tip`, `notice-warning` and `notice-caution`. When you pick your own colors, check their contrast against the notice background (`#f6f8fa` light, `#161b22` dark); aim for at least 4.5:1.
+
+To translate the titles of a multilingual site, use the i18n keys `notice_<type>` (hyphens become underscores). They take precedence over `title`. For example, in `i18n/de.toml`:
+
+```toml
+notice_info = "Info"
+notice_tip = "Tipp"
+notice_warning = "Warnung"
+notice_caution = "Vorsicht"
+```
+
+Each notice also has a `notice--<type>` class for further styling in [`assets/css/custom.css`](#custom-css).
 
 ### SEO
 

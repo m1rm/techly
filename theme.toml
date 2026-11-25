@@ -7,7 +7,7 @@ demosite = "https://m1rm.github.io/hugo-techly/"
 # themes.gohugo.io only keeps tags from a fixed allowlist (see normalizeTag in
 # gohugoio/hugoThemesSiteBuilder); the others are kept for other theme indexes.
 tags = ["blog", "personal", "minimal", "dark mode", "light mode", "archive", "newsletter", "tech", "developer", "accessible"]
-features = ["light and dark mode", "accessibility", "client-side search", "post series", "pinned posts", "table of contents", "syntax highlighting", "code copy button", "related posts", "archive page", "sitemap", "pagination"]
+features = ["light and dark mode", "accessibility", "client-side search", "post series", "pinned posts", "table of contents", "syntax highlighting", "code copy button", "notice shortcode", "related posts", "archive page", "sitemap", "pagination"]
 min_version = "0.146.0"
 
 [author]

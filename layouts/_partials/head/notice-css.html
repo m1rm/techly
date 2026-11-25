@@ -1,0 +1,35 @@
+{{- /*
+Builds the notice colors from site.Params.notices as a CSS resource.
+
+Each type gets --notice-color on .notice--<type>, with a dark mode value
+when color is given as { light, dark }. Returns nil when no types are set.
+*/ -}}
+
+{{- $light := slice -}}
+{{- $dark := slice -}}
+{{- range $type, $cfg := site.Params.notices -}}
+  {{- with $cfg.color -}}
+    {{- $selector := printf ".notice--%s" ($type | urlize) -}}
+    {{- if reflect.IsMap . -}}
+      {{- with .light -}}
+        {{- $light = $light | append (printf "%s{--notice-color:%s}" $selector .) -}}
+      {{- end -}}
+      {{- with .dark -}}
+        {{- $dark = $dark | append (printf "%s{--notice-color:%s}" $selector .) -}}
+      {{- end -}}
+    {{- else -}}
+      {{- $light = $light | append (printf "%s{--notice-color:%s}" $selector .) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $css := delimit $light "\n" -}}
+{{- with $dark -}}
+  {{- $css = printf "%s\n@media (prefers-color-scheme: dark){%s}" $css (delimit . "") -}}
+{{- end -}}
+
+{{- $resource := "" -}}
+{{- with $css -}}
+  {{- $resource = resources.FromString "css/notices.css" . -}}
+{{- end -}}
+{{- return $resource -}}
