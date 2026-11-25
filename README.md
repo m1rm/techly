@@ -66,7 +66,7 @@ See the [demo site repository](https://github.com/m1rm/hugo-techly) for a full w
 
 ## Site configuration
 
-Hugo does not merge every setting from theme modules into your site. Add the following to your site's `hugo.toml` so search and series work correctly:
+Hugo does not merge every setting from theme modules into your site. Add the following to your site's `hugo.toml` so search, series and syntax highlighting work correctly:
 
 ```toml
 [taxonomies]
@@ -75,7 +75,12 @@ Hugo does not merge every setting from theme modules into your site. Add the fol
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+
+[markup.highlight]
+  noClasses = false
 ```
+
+`noClasses = false` makes Hugo mark up code blocks with CSS classes, which Techly styles for light and dark mode. Without it, Hugo uses inline Monokai colors, and plain text in code blocks can be unreadable.
 
 If your site already defines `[taxonomies]`, include every taxonomy you still need — Hugo replaces the list rather than merging entries from the theme.
 

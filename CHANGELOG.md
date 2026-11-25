@@ -16,6 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Custom notice titles per notice (positional or `title=`) and translatable default titles (`notice_<type>` i18n keys).
 - `note` as an alias for `info`, so content written for hugo-notice keeps working.
 
+### Fixed
+
+- README: document `markup.highlight.noClasses = false` as a required site setting. Hugo doesn't take it from the theme, and without it code blocks use inline Monokai colors that make plain text unreadable.
+
 ## [2.5.1] - 2026-11-22
 
 ### Fixed
