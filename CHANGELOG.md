@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-11-25
+
+### Added
+
+- `notice` shortcode for info, tip, warning and caution boxes, styled like blockquotes with a colored border, icon and title. Colors meet WCAG AA in light and dark mode.
+- Notice types are configured under `params.notices.<type>` in your site config (TOML or YAML): `title`, `icon` (any SVG in `assets/icons/`, or `""` for none) and `color` (one value or separate `light` and `dark` values). Override single keys of the built-in types or add your own types.
+- Custom notice titles per notice (positional or `title=`) and translatable default titles (`notice_<type>` i18n keys).
+- `note` as an alias for `info`, so content written for hugo-notice keeps working.
+
 ## [2.5.1] - 2026-11-22
 
 ### Fixed
@@ -187,7 +196,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > **Note:** the `v0.0.1` tag was moved by mistake and points at the same commit as v0.1.1 (`9045d47`). The release described here is commit `5c41631`. The tag stays as it is because the Go module proxy has already cached it.
 
-[Unreleased]: https://github.com/m1rm/techly/compare/v2.5.1...HEAD
+[Unreleased]: https://github.com/m1rm/techly/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/m1rm/techly/compare/v2.5.1...v2.6.0
 [2.5.1]: https://github.com/m1rm/techly/compare/v2.5.0...v2.5.1
 [2.5.0]: https://github.com/m1rm/techly/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/m1rm/techly/compare/v2.3.1...v2.4.0
