@@ -23,6 +23,29 @@
     moreLink = "best"
     moreLabel = "More in %s"
 
+  # Notice shortcode types. Override any key in your site's config, or add
+  # your own type as [params.notices.<type>].
+  #   title: default title (the i18n key notice_<type> takes precedence)
+  #   icon:  name of assets/icons/<icon>.svg, "" for no icon
+  #   color: border, title and icon color; one value for both modes or
+  #          { light = "…", dark = "…" }
+  [params.notices.info]
+    title = "Info"
+    icon = "notice-info"
+    color = { light = "#0969da", dark = "#4493f8" }
+  [params.notices.tip]
+    title = "Tip"
+    icon = "notice-tip"
+    color = { light = "#1a7f37", dark = "#3fb950" }
+  [params.notices.warning]
+    title = "Warning"
+    icon = "notice-warning"
+    color = { light = "#9a6700", dark = "#d29922" }
+  [params.notices.caution]
+    title = "Caution"
+    icon = "notice-caution"
+    color = { light = "#cf222e", dark = "#f85149" }
+
 [taxonomies]
   tag = "tags"
   category = "categories"

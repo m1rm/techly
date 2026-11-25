@@ -1,0 +1,65 @@
+{{- /*
+Renders a notice box.
+
+Usage:
+  {{< notice info >}}Markdown content{{< /notice >}}
+  {{< notice warning "Custom title" >}}Markdown content{{< /notice >}}
+  {{< notice type="tip" title="Custom title" >}}Markdown content{{< /notice >}}
+
+Types, titles, icons and colors come from site.Params.notices (defaults in
+the theme's hugo.toml: info, tip, warning, caution). "note" is
+accepted as an alias for "info" unless a "note" type is configured.
+
+Title precedence: shortcode argument, i18n key notice_<type> (hyphens
+become underscores), params.notices.<type>.title, the type name.
+*/ -}}
+
+{{- $types := site.Params.notices | default dict -}}
+
+{{- $type := "" -}}
+{{- $title := "" -}}
+{{- if .IsNamedParams -}}
+  {{- $type = .Get "type" -}}
+  {{- $title = .Get "title" -}}
+{{- else -}}
+  {{- $type = .Get 0 -}}
+  {{- $title = .Get 1 -}}
+{{- end -}}
+
+{{- $type = $type | default "info" | lower -}}
+{{- if and (eq $type "note") (not (isset $types "note")) -}}
+  {{- $type = "info" -}}
+{{- end -}}
+
+{{- if not (isset $types $type) -}}
+  {{- $known := slice -}}
+  {{- range $k, $_ := $types -}}
+    {{- $known = $known | append $k -}}
+  {{- end -}}
+  {{- errorf "notice: unknown type %q at %s. Configured types: %s." $type .Position (delimit (sort $known) ", ") -}}
+{{- end -}}
+
+{{- $cfg := index $types $type -}}
+
+{{- if not $title -}}
+  {{- $title = T (printf "notice_%s" (replace $type "-" "_")) -}}
+{{- end -}}
+{{- if not $title -}}
+  {{- $title = $cfg.title | default (humanize $type) -}}
+{{- end -}}
+
+<aside class="notice notice--{{ $type | urlize }}" role="note">
+  <p class="notice-title">
+    {{- with $cfg.icon }}
+      {{- with resources.Get (printf "icons/%s.svg" .) }}
+        <span class="notice-icon" aria-hidden="true">{{ .Content | safeHTML }}</span>
+      {{- else }}
+        {{- warnf "notice: icon %q for type %q not found at assets/icons/%s.svg" . $type . }}
+      {{- end }}
+    {{- end }}
+    <span>{{ $title }}</span>
+  </p>
+  <div class="notice-content">
+    {{- .InnerDeindent | strings.TrimSpace | .Page.RenderString (dict "display" "block") -}}
+  </div>
+</aside>
